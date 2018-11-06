@@ -16,7 +16,3 @@ export const spotifyPlaylistURL = "https://api.spotify.com/v1/me/playlists?acces
 export const spotifySearchURL = "https://api.spotify.com/v1/search?q=";
 export const spotifyArtistURL = "https://api.spotify.com/v1/artists/";
 export const spotifyAlbumURL = "https://api.spotify.com/v1/albums/";
-
-
-
-https://accounts.spotify.com/authorize/?client_id=47b847e2aa9c4a73b248e1ad79ed5529&response_type=token&redirect_uri=https://next-spotify.herokuapp.com/spotify&scope=user-read-private+user-read-email+playlist-read-private+user-top-read+user-read-recently-played
