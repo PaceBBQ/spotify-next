@@ -53,7 +53,7 @@ class User extends Component {
                     </div>
                     <div className="col-md-6 text-left">
                         <h6>Username:</h6>
-                        <p className="">{user.display_name}</p>
+                        <p className="">{user.id}</p>
                         <h6>Email:</h6>
                         <p className="">{user.email}</p>
                         <h6>Total follorwes:</h6>
