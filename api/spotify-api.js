@@ -7,7 +7,7 @@ let prod = true;
 
 const scopes = "user-read-private+user-read-email+playlist-read-private+user-top-read+user-read-recently-played";
 //const redirectURI = prod ? "https://https://next-spotify.herokuapp.com/spotify" : "http://localhost:8080/spotify";
-const redirectURI = "https://https://next-spotify.herokuapp.com/spotify";
+const redirectURI = "https://next-spotify.herokuapp.com/spotify";
 export const clientID = "47b847e2aa9c4a73b248e1ad79ed5529";
 export const spotifyWebApiURL = `https://accounts.spotify.com/authorize/?client_id=${clientID}&response_type=token&redirect_uri=${redirectURI}&scope=${scopes}`;
 export const spotifyProfileURL = "https://api.spotify.com/v1/me?access_token=";
