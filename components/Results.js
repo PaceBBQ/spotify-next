@@ -1,19 +1,19 @@
-const Results = (props) => (
-    <div className={props.columnWidth ? props.columnWidth : "col-md-3"}>
-        <figure className="figure">
-            {
-                props.imageURL ?
-                <img 
-                    src={props.imageURL} 
-                    className="figure-img img-thumbnail rounded" 
-                    alt={props.name} 
-                /> 
-                : ''
-            }
-            <figcaption className="figure-caption">{props.name}</figcaption>
-            <figcaption className="figure-caption">{props.children}</figcaption>
-        </figure>
-    </div>
-)
+const Results = ({ columnWidth = "col-md-3", imageURL, name, children }) => (
+  <div className={columnWidth}>
+    <figure className="figure">
+      {imageURL && (
+        <img
+          src={imageURL}
+          className="figure-img img-thumbnail rounded"
+          alt={name}
+        />
+      )}
+      <figcaption className="figure-caption">{name}</figcaption>
+      {children && (
+        <figcaption className="figure-caption">{children}</figcaption>
+      )}
+    </figure>
+  </div>
+);
 
-export default Results
+export default Results;

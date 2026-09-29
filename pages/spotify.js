@@ -1,58 +1,57 @@
-import React, { Component } from 'react'
-import Router from 'next/router'
-import Layout from '../components/Layout'
-import { spotifyWebApiURL } from '../api/spotify-api'
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Layout from '../components/Layout';
+import { spotifyWebApiURL } from '../api/spotify-api';
 
-class Spotify extends Component {
+const Spotify = () => {
+  const [accessToken, setAccessToken] = useState('');
+  const router = useRouter();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            access_token: ''
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash && hash.includes('access_token')) {
+        const params = new URLSearchParams(hash.substring(1));
+        const token = params.get('access_token');
+        if (token) {
+          setAccessToken(token);
+          window.history.replaceState({}, document.title, window.location.pathname);
         }
+      }
     }
+  }, []);
 
-    
-    componentDidMount = () => {
-        let url = window.location.href
-        if(url.indexOf('_token')>-1){            
-            let access_token = url.split('_token=')[1].split("&")[0].trim()
-            this.setState({ access_token })
-        }
+  const handleLogin = (event) => {
+    event.preventDefault();
+    if (accessToken === '') {
+      window.location.href = spotifyWebApiURL;
+    } else {
+      router.push({
+        pathname: '/user',
+        query: { access_token: accessToken }
+      });
     }
-    
-    makeSpotifyProfileCall = (event) => {
-        event.preventDefault()
-        const { access_token } = this.state
-        if(access_token===''){
-            document.location = spotifyWebApiURL
-        }else{
-            Router.push({
-                pathname: '/user',
-                query: { access_token }
-            })
-        }  
-    }
+  };
 
-    render() {
-        const { access_token } = this.state
-        return (
-            <Layout>
-                <div className="row mt-5 justify-content-center">
-                    <h3>
-                        {
-                           access_token !== '' ? 'Awesome! Authentication was successful!' : 'Login with Spotify'
-                        }
-                    </h3>
-                </div>
-                <div className="row justify-content-center mt-5">
-                    <button onClick={event => this.makeSpotifyProfileCall(event)} className="btn btn-success">
-                        { access_token !== '' ? 'Proceed to spotifyNext' : 'Login' }
-                    </button>
-                </div>
-            </Layout>
-        );
-    }
-}
+  return (
+    <Layout>
+      <div className="row mt-5 justify-content-center">
+        <h3 className="text-center">
+          {accessToken !== '' 
+            ? 'Awesome! Authentication was successful!' 
+            : 'Login with Spotify'}
+        </h3>
+      </div>
+      <div className="row justify-content-center mt-5">
+        <button 
+          onClick={handleLogin} 
+          className="btn btn-success btn-lg"
+        >
+          {accessToken !== '' ? 'Proceed to Nextify' : 'Login'}
+        </button>
+      </div>
+    </Layout>
+  );
+};
 
 export default Spotify;
